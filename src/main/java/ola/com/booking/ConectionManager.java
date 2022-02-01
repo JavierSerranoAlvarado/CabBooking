@@ -10,9 +10,9 @@ public class ConectionManager {
 	public static Connection conn; 
 	
 	public static Connection getConnection() {
-	String url = "jdbc:mysql://localhost:3306/cabbooking";
+	String url = "jdbc:mysql://localhost:3306/cabbooking?serverTimezone=UTC";
 	String username = "root";
-	String password = "Swami@143";
+	String password = "KaiserDe4";
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

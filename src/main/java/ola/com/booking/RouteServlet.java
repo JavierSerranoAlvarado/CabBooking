@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ola.com.booking.model.Ride;
+import ola.com.booking.model.Route;
 import ola.com.booking.service.RouteService;
 import ola.com.booking.service.impl.RouteServiceImpl;
 
@@ -24,6 +26,7 @@ public class RouteServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//u have userId
+		
 		req.setAttribute("rList", routeService.getRoutes()); //all rout info + userId
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/routeview.jsp");
         rd.forward(req, resp);

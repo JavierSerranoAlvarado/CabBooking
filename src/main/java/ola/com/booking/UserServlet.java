@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ola.com.booking.helper.UserHelper;
 import ola.com.booking.model.User;
 import ola.com.booking.service.UserService;
 import ola.com.booking.service.impl.UserServiceImpl;
@@ -40,13 +41,17 @@ public class UserServlet extends HttpServlet{
 		}
 		
 		if(req.getParameter("action").equals("login")) {
-			boolean isExist = userService.validateUser(req.getParameter("username"), req.getParameter("passowrd"));
+			
+			boolean isExist = userService.validateUser(req.getParameter("username") , req.getParameter("password") );
+			
 			//instead of boolean get user object
 			resp.setContentType("text/html;charset=UTF-8");
 	        PrintWriter out = resp.getWriter();
 	        
 			if(isExist) {//user obj null or not
+				
 				RequestDispatcher rd = req.getRequestDispatcher("routes");
+				
 				//send userId also
 	            rd.forward(req, resp);
 			}

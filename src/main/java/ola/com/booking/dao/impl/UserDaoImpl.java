@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import ola.com.booking.ConectionManager;
 import ola.com.booking.dao.UserDao;
+import ola.com.booking.helper.UserHelper;
+import ola.com.booking.model.Route;
 import ola.com.booking.model.User;
 
 public class UserDaoImpl implements UserDao {
@@ -37,12 +39,38 @@ public class UserDaoImpl implements UserDao {
 		    stmt.setString(1, username);
 		    stmt.setString(2, password);
 		    
-		    return stmt.execute();
+		    setCurrentUser( username,  password);
+		    
+		    return stmt.execute();	    
+		    
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public void setCurrentUser(String username, String password) {
+		try {
+						
+			PreparedStatement stmt = conn.prepareStatement("SELECT userId FROM user WHERE name=? and password=?");
+		    stmt.setString(1, username);
+		    stmt.setString(2, password);
+		    
+		    
+		    ResultSet result = stmt.executeQuery();
+		    while(result.next()) {
+				UserHelper.setCurrentUserId(result.getInt("userId"));
+		    }
+		    
+		    System.out.println(UserHelper.getCurrentUserId());
+		    
+		    
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

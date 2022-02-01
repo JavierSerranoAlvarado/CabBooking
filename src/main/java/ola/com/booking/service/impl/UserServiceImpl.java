@@ -8,18 +8,25 @@ import ola.com.booking.service.UserService;
 
 public class UserServiceImpl implements UserService{
 
-	UserDao userDao;
+	UserDao userDao = new UserDaoImpl();;
 
 	public void saveUser(User user) {
-		userDao = new UserDaoImpl();
 		
 		user.setId(UserHelper.getIncrement());
 		userDao.saveUser(user);	
+		
 	}
 
 	@Override
 	public boolean validateUser(String username, String password) {
-		userDao = new UserDaoImpl();
+		
+
 		return userDao.validateUser(username, password);
+	}
+
+	@Override
+	public void setCurrentUser(String username, String password) {
+		userDao.setCurrentUser(username, password);
+		
 	}
 }
